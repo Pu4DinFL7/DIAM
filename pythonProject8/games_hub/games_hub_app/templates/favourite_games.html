@@ -1,0 +1,24 @@
+{% extends "./base.html" %}
+{% load static %}
+
+{% block title %}
+<title>{{ request.user }}'s favourite games</title>
+{% endblock %}
+{% block conteudo %}
+
+{% if image_list|length == 0%}
+    <h1 style="margin-left: 20px;  color:white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin-bottom: 10px"> No games to show, why don't you go <a href="{% url 'games_hub_app:show_all_games' %}" style="text-decoration: none; color:cyan" onmouseover="this.style.color = 'deepskyblue'" onmouseout="this.style.color = 'cyan'">add some ?</a> </h1>
+{% else %}
+
+    <div class="bookmarked-main-container">
+    <h1>Favourite games</h1>
+    <div class="image-grid">
+    {% for image in image_list %}
+            <a href="{% url 'games_hub_app:image_detail' image.id %}">
+                <img src="{% static image.image %}" alt="{{ image.name }}">
+            </a>
+    {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}

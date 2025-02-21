@@ -1,0 +1,86 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.rating {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+
+.rating:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+
+.rating:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+    margin-right: 5px; /* Add margin-right to add spacing between stars */
+}
+
+.comment-text-area{
+
+    color: #8A2BE2;
+    text-shadow: 0px 0px 1px #00FFFF;
+    border-radius: 10px;
+    padding: 4px 10px 10px 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size:20px;
+    resize: none;
+    width: 1300px;
+  height: 108px;
+}
+
+:root {
+    --color-bg: #090b13;
+    --color-star-unselected: #eee;
+    --color-star-hover:rgba(187,0,254,1);
+    --color-star-selected: rgba(187,0,254,1);
+}
+
+/* Rating control styles */
+.rating:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color: var(--color-star-unselected);
+    text-shadow: 0px 0px 2px var(--color-star-unselected);
+    margin-right: 5px; /* Add margin-right to add spacing between stars */
+}
+
+.rating:not(:checked) > label:before {
+    content: '\f005';
+    color: var(--color-star-unselected);
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+}
+
+.rating > input:checked ~ label:before {
+    color: var(--color-star-selected);
+    text-shadow: 0px 0px 3px var(--color-star-selected);
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+    color: var(--color-star-hover);
+    text-shadow: 0px 0px 6px var(--color-star-hover);
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+    color: var(--color-star-hover);
+    text-shadow: 0px 0px 6px var(--color-star-hover);
+}

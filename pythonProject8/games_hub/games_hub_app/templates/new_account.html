@@ -1,0 +1,22 @@
+{% extends "./base.html" %}
+{% load static %}
+{% block title %}
+<title>Create Account</title>
+{% endblock %}
+
+{% block conteudo %}
+    <form class="alter-profile-image" action="{% url 'games_hub_app:new_account' %}" method="post">
+      {% csrf_token %}
+      <label for="username" style="font-size: 30px;">Username:</label>
+      <input type="text" id="username" name="username" required style="font-size: 20px; color: white;
+    text-shadow: 0px 0px 3px #002f2f; background: rgba(91,206,255,0); padding: 5px"><br><br>
+      <label for="password" style="font-size: 30px;">Password:</label>
+      <input type="password" id="password" name="password" required style="font-size: 20px; color: white;
+    text-shadow: 0px 0px 3px #002f2f; background: rgba(0,191,249,0.1); padding: 5px"><br><br>
+      <label for="email" style="font-size: 30px;">Email:</label>
+      <input type="email" id="email" name="email" required style="font-size: 20px; color: white;
+    text-shadow: 0px 0px 3px #002f2f; background: rgba(0,191,249,0.1); padding: 5px"><br><br>
+      <input type="submit" class="neon-button" style="margin-bottom: 20px;" value="Create Account">
+    </form>
+     </div>
+{% endblock %}

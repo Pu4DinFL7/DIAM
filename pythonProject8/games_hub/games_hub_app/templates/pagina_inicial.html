@@ -1,0 +1,50 @@
+{% extends "./base.html" %}
+
+{% block conteudo %}
+<h2>
+    Games Hub:
+</h2>
+<br />
+<br />
+
+{% if latest_question_list %}
+
+    <form action="{% url 'votacao:index' %}" method="post">
+    {% csrf_token %}
+    {% for questao in latest_question_list %}
+        {% if perms.votacao.delete_questao %}
+        <input type="checkbox" name="questao_{{ questao.id }}" />
+        {% endif %}
+        <input type="hidden" name="questao_ids[]" value="{{ questao.id }}" />
+        <a href="{% url 'votacao:detalhe' questao.id %}">
+            {{questao.questao_texto}}
+        </a>
+
+    <br />
+    <br />
+        {% endfor %}
+    <div>
+        {% if perms.votacao.delete_questao %}
+
+         <input type="submit" name="delete" value="Delete"  />
+        {% endif %}
+
+    </div>
+    <br />
+
+</form>
+{% if perms.votacao.add_questao %}
+<a href="{% url 'votacao:criarquestao' %}" >
+    <button class="CFG">
+        Criar nova Questão
+    </button>
+</a>
+{% endif %}
+
+{% else %}
+<p> Nao ha questoes disponiveis.</p>
+{% endif %}
+<br>
+
+{% endblock %}
+

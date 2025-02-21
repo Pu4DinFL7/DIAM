@@ -1,0 +1,29 @@
+{% extends "./base.html" %}
+
+
+
+
+
+
+{% load static %}
+{% block title %}
+<title>All Games</title>
+{% endblock %}
+
+
+
+{% block conteudo %}
+
+<div class="bookmarked-main-container">
+    <h1>All games</h1>
+    {% if user.is_superuser %}
+    <a class="neon-button" style="z-index: 5; position:absolute; margin-top:  -50px; right: 65px; font-size: 20px; color: white;
+    text-shadow: 0px 0px 3px #002f2f;" href="{% url 'games_hub_app:add_game' %}">Add a Game</a>
+    {% endif %}
+    <div class="all-games-image-grid">
+    {% for image in latest_image_list %}
+        <a href="{% url 'games_hub_app:image_detail' image.id %}"> <img class="games_cover" src="{% static image.image %}" alt="{{ image.name }}"> </a>
+    {% endfor %}
+    </div>
+</div>
+{%  endblock %}

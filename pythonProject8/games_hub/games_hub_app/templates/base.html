@@ -1,0 +1,58 @@
+{% load static %}
+{% if messages %}
+{% endif %}
+<head>
+  {% block title%}
+  {% endblock %}
+  <link rel="icon" href="{% static 'games_hub_app/internal/Games_Hub_Favicon.png' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'games_hub_app/css/games_hub.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'games_hub_app/css/imageDetail.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'games_hub_app/css/new_comment.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'games_hub_app/css/profile.css' %}" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+<script src="https://kit.fontawesome.com/41090d81fd.js" crossorigin="anonymous"></script>
+</head>
+
+<header class="header">
+    <a href="{% url 'games_hub_app:teste' %}">
+        <div class="logo"></div>
+    </a>
+    <div></div>
+    <nav class="navbar">
+    <a></a>
+    <a href="{% url 'games_hub_app:teste' %}">Home</a>
+    <a href="{% url 'games_hub_app:show_all_games' %}">All Games</a>
+      {% if user.is_authenticated %}
+        <a id = "username" href="{% url 'games_hub_app:perfil' %}">{{ user.username }}</a>
+      {% else %}
+        <a href="{% url 'games_hub_app:loginview' %}">Login</a>
+      {% endif %}
+    </nav>
+    <div class="circle">
+    {{ request.user.rat.perfil_image }}
+      {% if request.user.rats.perfil_image %}
+        <img id="profileImage" src="{% static request.user.rats.perfil_image %}" alt="{{rats.perfil_image}}" width="50" height="50">
+      {% else %}
+        <img id="profileImage2" src="{% static 'pics/default-user-image.png' %}" alt="Your Image" width="50" height="50">
+      {% endif %}
+    </div>
+</header>
+
+<br/>
+<br/>
+<body>
+  {% block conteudo %}
+
+  {% endblock %}
+</body>
+
+<footer style="background-color: #111111; color: #ffffff; padding: 20px;">
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <h3 style="font-size: 20px; margin: 0;">Contact Us</h3>
+    <ul style="list-style: none; margin: 0; padding: 0; display: flex;">
+      <li style="margin-right: 20px;"><a  href="tel:+351 912335784" style="text-decoration: none; color: #cccccc" onmouseover="this.style.color = 'cyan'" onmouseout="this.style.color = 'white'">912 335 784</a></li>
+      <li><a href="mailto:games_hub@games.com" style="text-decoration: none; color: #cccccc" onmouseover="this.style.color = 'cyan'" onmouseout="this.style.color = 'white'">games_hub@games.com</a></li>
+    </ul>
+  </div>
+</footer>

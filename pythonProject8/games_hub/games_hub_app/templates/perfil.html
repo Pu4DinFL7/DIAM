@@ -1,0 +1,56 @@
+{% extends "./base.html" %}
+{% load static %}
+
+{% block title %}
+<title>{{ request.user }}'s profile</title>
+{% endblock %}
+{% block conteudo %}
+<div class="profile-container">
+ <h1> {{ user.username }}'s profile</h1>
+      <br/>
+    <div class="profile-image-border">
+        {% if rat.perfil_image %}
+
+                <img class="profile-image" src="{% static rat.perfil_image %}"  width="200" height="200" style = "object-fit: cover">
+
+      {% else %}
+      <img src="{% static 'pics/default-user-image.png' %}" alt="Your Image" width="200" height="200">
+        {% endif %}
+    </div>
+
+    <div class="profile-data">
+      <p>Username: {{ user.username }}</p>
+      <p>Email: {{ user.email }}</p>
+    </div>
+
+    <div class="alter-profile-image">
+        <h4> Change profile image:</h4>
+        <br/>
+        <form method="post" enctype="multipart/form-data" action="{% url 'games_hub_app:upload' %}">
+            {% csrf_token %}
+            <input type="file" class="neon-button" style="font-size: 15px; width:100%" name="myfile"  value="Escolher ficheiro">
+            <input type="hidden" name="rat_id" value="{{ rat.id }}">
+            <input type="submit" class="neon-button" style="width: 35%; transform: scale(0.9)" value="Upload">
+        </form>
+    </div>
+
+    {% if user.is_authenticated %}
+        <a class="neon-button" href="{% url 'games_hub_app:favourite_games' %}" style="text-decoration: none; color:white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin-bottom: 10px" onmouseover="this.style.color ='purple'" onmouseout="this.style.color = 'white'">My Favourite Games</a>
+
+        <a href="{% url 'games_hub_app:logout_view' %}" style="text-decoration: none; color:white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin-bottom: 10px" onmouseover="this.style.color = 'crimson'" onmouseout="this.style.color = 'white'"><h3>Logout</h3></a>
+
+      {% else %}
+        <a href="{% url 'games_hub_app:loginview' %}" style="text-decoration: none; color:white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin-bottom: 10px">Log in</a>
+      {% endif %}
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        {%  if messages %}
+        {% for message in messages %}
+            alert('{{ message }}');
+        {% endfor %}
+        {% endif %}
+    });
+</script>
+{% endblock %}

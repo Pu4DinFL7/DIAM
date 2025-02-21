@@ -1,0 +1,49 @@
+{% extends "./base.html" %}
+{% load static %}
+
+{% block title %}
+<title>{{ image.name }} New Comment</title>
+{% endblock %}
+{% block conteudo %}
+
+<script>
+ {%  if messages %}
+        {% for message in messages %}
+            alert('{{ message }}');
+        {% endfor %}
+        {% endif %}
+</script>
+
+<form  action="{% url 'games_hub_app:new_comment' image.id %}" method="POST">
+ <div class="comment-section">
+    {% csrf_token %}
+
+    <div style="margin-left: 5%;" class="comment-card">
+        <div class="profile-border">
+            <img class="comment-profile" src="{% static request.user.rats.perfil_image %}" alt="">
+        </div>
+
+        <div class="comment-section">
+
+            <h2>{{ request.user}}</h2>
+            <article>
+                <textarea rows="4" maxlength="100" class="comment-text-area" type="text" name="new_comment" value="{{ new_comment }}" required/></textarea>
+            </article>
+            <div style="bottom: 0; position: absolute" class="rating">
+                <input type="radio" id="star5" class="radio-rating-btn" name="rate" value="5" required />
+                <label for="star5" title="text" >5 stars</label>
+                <input type="radio" id="star4" class="radio-rating-btn" name="rate" value="4" />
+                <label for="star4" title="text">4 stars</label>
+                <input type="radio" id="star3" class="fa fa-star" name="rate" value="3" />
+                <label for="star3" title="text">3 stars</label>
+                <input type="radio" id="star2" class="fa fa-star" name="rate" value="2" />
+                <label for="star2" title="text">2 stars</label>
+                <input type="radio" id="star1" class="fa fa-star" name="rate" value="1" />
+                <label for="star1" title="text">1 star</label>
+            </div>
+        </div>
+    </div>
+ </div>
+    <input style="margin-left: 40%" type="submit" class="neon-button" value="Submeter o seu comentário" />
+</form>
+{% endblock %}

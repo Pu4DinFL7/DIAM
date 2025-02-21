@@ -1,0 +1,69 @@
+.profile-container{
+    margin: 10px 700px 20px 700px;
+    border-radius: 10px;
+    align-self: center;
+    background: linear-gradient(10deg, rgba(187,0,254,0.1),rgba(60,185,252,0.7),rgba(160,234,250, 1), rgba(181,55,242,0.5), rgba(181,55,242,0.1));
+    align-items: center;
+    display: flex;
+    flex-flow: column;
+    border: 2px solid #B537F2;
+    border-style: solid none;
+}
+
+.profile-container h1{
+    margin-top: 40px;
+    margin-bottom:20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 40px;
+    color: white;
+    text-shadow: 0px 0px 3px #002f2f;
+}
+
+.profile-image{
+
+    width: 200px;
+    height: 200px;
+    padding: 2px;
+  object-fit: cover;
+box-shadow: 5px 4px 5px rgba(0,0,0,0.4);
+    border-radius: 10px;
+}
+
+.profile-image-border{
+    width: 204px;
+    height: 204px;
+    background: linear-gradient(to right, #23E7E7, rgba(187,0,254,1));
+    border-radius: 10px;
+    padding: 3px;
+}
+
+.profile-data  {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: white;
+    text-shadow: 0px 0px 3px #002f2f;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+}
+
+.alter-profile-image{
+     border: 2px solid #B537F2;
+    border-style: solid none;
+    padding-top: 10px;
+    background: linear-gradient(60deg, rgba(60,185,252,0.1), rgba(186, 23, 255, 0.6),rgba(160,234,250, 1));
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    text-shadow: 0px 0px 3px #002f2f;
+    margin-bottom: 20px;
+}
+
+.alter-profile-image form{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    margin: 0px 20px 20px 20px;
+}
+
+

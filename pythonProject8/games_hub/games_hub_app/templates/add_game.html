@@ -1,0 +1,56 @@
+{% extends "./base.html" %}
+{% load static %}
+
+
+
+
+{% block title %}
+
+
+<title xmlns="http://www.w3.org/1999/html">Add new game</title>
+{% endblock %}
+
+
+
+
+{% block conteudo %}
+<script>
+ {%  if messages %}
+        {% for message in messages %}
+            alert('{{ message }}');
+        {% endfor %}
+        {% endif %}
+</script>
+
+
+<form class="alter-profile-image" style="height: 30%" action="{% url 'games_hub_app:add_game' %}" enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+    <div style="display: flex; position: absolute; text-align: left; align-items: center; width: 500px; margin-top: 20px; margin-left: 80px">
+    <h2 style="position:relative; margin-right: 10px; width: 190px">Game's name:</h2><input style="position: relative;text-shadow: 0px 0px 1px #00FFFF;
+    border-radius: 10px;
+    padding: 4px 10px 10px 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size:20px;" type="text" name="name" value="{{ name }}" required>
+    </div>
+
+    <div style="display: flex; align-items: center; justify-content: left; text-align: left; position: absolute; width:1700px; margin-top: 100px; margin-left: 80px; margin-bottom: 80px">
+    <h2 style="position:relative; margin-right: 10px; width: 200px"> Game Description:</h2>
+    <textarea type = "text" name="description" value="{{description}}" style="color: #8A2BE2;
+    text-shadow: 0px 0px 1px #00FFFF;
+    border-radius: 10px;
+    padding: 4px 10px 10px 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size:20px;
+    resize: none;
+    width: 90%;
+  height: 108px; position: relative;" required/></textarea>
+        </div>
+    <div style="display: flex; position: absolute; width: 650px; right: 120px; margin-top: 20px; ">
+    <h2 style="position: relative; margin-top: 20px">Image of the game:</h2>
+    <input class="neon-button"  style="position: relative;flex-grow: 1; margin-left:30px; font-size: 15px" type="file" name="myfile" required>
+        </div>
+
+    <input style="position: absolute; top: 43% ;align-self: center" type="submit" class="neon-button" style="margin-bottom: 10px;" value="Add Game">
+
+</form>
+{% endblock %}

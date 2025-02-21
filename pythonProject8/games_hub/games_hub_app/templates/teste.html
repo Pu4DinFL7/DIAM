@@ -1,0 +1,85 @@
+{% extends "./base.html" %}
+{% load static %}
+{% block title %}
+<title>Games Hub</title>
+{% endblock %}
+
+{% block conteudo %}
+
+{% if latest_image_list %}
+    <br>
+<div class="owl-carousel-wrapper">
+  <h1 class="owl-title"> Top 10 most viewed games </h1>
+    <br>
+    <div class="owl-carousel">
+      {% for image in latest_image_list %}
+      <div> <a href="{% url 'games_hub_app:image_detail' image.id %}"> <img class="games_cover" src="{% static image.image %}" alt="{{ image.name }}"> </a></div>
+      {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% if most_liked_list %}
+    <br>
+<div class="owl-carousel-wrapper">
+  <h1 class="owl-title"> Top 10 most liked games </h1>
+    <br>
+    <div class="owl-carousel">
+      {% for image in most_liked_list %}
+      <div> <a href="{% url 'games_hub_app:image_detail' image.id %}"> <img class="games_cover" src="{% static image.image %}" alt="{{ image.name }}"> </a></div>
+      {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% if recently_added_list %}
+    <br>
+<div class="owl-carousel-wrapper">
+  <h1 class="owl-title"> Most recently added games</h1>
+    <br>
+    <div class="owl-carousel">
+      {% for image in recently_added_list %}
+      <div> <a href="{% url 'games_hub_app:image_detail' image.id %}"> <img class="games_cover" src="{% static image.image %}" alt="{{ image.name }}"> </a></div>
+      {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+
+  <!-- Include the jQuery library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- Include the Owl Carousel JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+  <script>
+    const leftArrow = '<span class=left_arrow>'
+      const rightArrow = '<span class=right_arrow>'
+    $(document).ready(function(){
+        {%  if messages %}
+        {% for message in messages %}
+            alert('{{ message }}');
+        {% endfor %}
+        {% endif %}
+      $('.owl-carousel').owlCarousel({
+        loop:true,
+        margin:15,
+        nav:true,
+        navText: [
+              leftArrow,
+              rightArrow
+          ],
+        responsive:{
+          0:{
+            items:1
+          },
+          600:{
+            items:3
+          },
+          1000:{
+            items:5
+          }
+        }
+      });
+    });
+  </script>
+  {% endblock %}

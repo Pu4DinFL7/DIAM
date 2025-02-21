@@ -1,0 +1,113 @@
+{% extends "./base.html" %}
+{% load static %}
+
+{% block title %}
+<title>Games Hub | {{ image.name }}</title>
+{% endblock %}
+{% block conteudo %}
+
+<div class="main-container">
+
+  <div class="game-container">
+  <img class="game-art" src="{% static image.image %}" alt="{{ image.name }}">
+  <div class="game-buttons">
+  <form action="{% url 'games_hub_app:image_detail' image.id %}" method="post">
+    {% csrf_token %}
+      <span class="views-count">{{image.views}}</span>
+      <button class="views-btn" disabled ><i class="far fa-eye"></i></button>
+       <span class="likes-count">{{image.likes}}</span>
+    <button class="heart-btn" name="like"><i class="far fa-heart"></i></button>
+    <button class="bookmark-btn" name="bookmark"><i class="far fa-bookmark"></i></button>
+      {% if perms.games_hub_app.delete_image %}
+                 <button class="neon-button" type="checkbox" name="remove">Remove Game </button>
+            {% endif %}
+  </form>
+  </div>
+  </div>
+  <div class="game-info">
+     <h1 class="game-title">{{ image.name }}</h1>
+     <div class="game-description-bg">
+        <article class="game-description">{{ image.description|linebreaksbr }}</article>
+     </div>
+  </div>
+</div>
+
+<div class="comment-container">
+    <h2>{{ commentList|length }} comments</h2>
+
+    <a href="{% url 'games_hub_app:new_comment' image.id %}">
+         <button class="neon-button"> Add a new comment </button>
+    </a>
+
+    {% if commentList %}
+    {% for comment in commentList %}
+    <div class="comment-card">
+        <div class="profile-border">
+            <img class="comment-profile" src="{% static comment.user.perfil_image %}" alt="">
+        </div>
+
+        <div class="comment-section">
+
+            <div style="display: flex; align-items: center">
+            <h2>{{ comment.user.user.username}} on {{ comment.comment_data }}</h2>
+                {% if request.user.id %}
+                   {% if comment.user.user_id  == request.user.id or request.user.is_superuser%}
+                       <a href="{% url 'games_hub_app:erase_comment' comment_id=comment.id image_id=image.id %}">
+                       <i class="fa-solid fa-trash" style="position:relative; margin-left: 650px; color: firebrick; font-size: 40px;   text-shadow: 0 0 2px darkred, 0 0 2px darkred, 0 0 2px darkred, 0 0 2px darkred; cursor: pointer" onmouseover="this.style.color = 'red'" onmouseout="this.style.color = 'firebrick'"></i>
+                       </a>
+                   {% endif %}
+
+                {% endif %}
+            </div>
+            <article>
+                {{ comment.comment_text|linebreaksbr }}
+            </article>
+            <div class="rate" data-rating={{ comment.rating }}>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        {%  if messages %}
+        {% for message in messages %}
+            alert('{{ message }}');
+        {% endfor %}
+        {% endif %}
+
+        {% if liked is not none and liked %}
+            $('.heart-btn').toggleClass('active');
+            $('.heart-btn').find('i').removeClass('far fa-heart').addClass('fas fa-heart');
+        {% endif %}
+
+        {% if bookmarked %}
+            $('.bookmark-btn').toggleClass('active');
+            $('.bookmark-btn').find('i').removeClass('far fa-bookmark').addClass('fas fa-bookmark');
+        {% endif %}
+    });
+
+    $('.heart-btn, .views-btn, .bookmark-btn').click(function() {
+        $(this).toggleClass('active');
+
+        if($(this).hasClass('heart-btn')) {
+
+            $(this).find('i').toggleClass('fas fa-heart').toggleClass('far fa-heart');
+        }
+
+        if($(this).hasClass('bookmark-btn')){
+            $(this).find('i').toggleClass('fas fa-bookmark').toggleClass('far fa-bookmark');
+        }
+    });
+</script>
+{% endblock %}
